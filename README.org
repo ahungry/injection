@@ -87,11 +87,25 @@ means that you have to write them procedurally if injecting
 dependencies (which you're likely to do if you wanted to use this to
 begin with).
 
-I might also add an optional _defsystem_ keyword that would allow
+I might also add an optional *directory* keyword that would allow
 specifying the location of a package to load (so you could actually
 load packages or files on your machine through asdf/quicklisp through
 the YAML configuration, instead of having to do it on your top level
 asd yourself).
+
+Essentially it would look something like this:
+#+BEGIN_SRC yaml
+services:
+  service_container:
+    factory: Container-Factory
+    arguments: ["@file_loader"]
+    directory: "/path/to/your-project"
+    package: "package-name"
+#+END_SRC
+
+and would add the specified directory to your local quicklisp projects
+directory, followed by a (ql:quickload :package-name), although that
+may add needless complication.
 * Installation
 Clone the repository (you do know how to git clone by now right?)
 
