@@ -45,7 +45,7 @@ Access a service within it by using:
 (get-service "dependent_service") -> <DependentService #abc123>
 #+END_SRC
 
-* I will not use global scope Sam I am, I will not in a can
+* I will not use global scope Pam I am, I will not in a can
 Ok, so, not a fan of global state, I understand.
 
 You can avoid any global state by not specifying the singleton keyword
