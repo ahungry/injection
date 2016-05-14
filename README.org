@@ -24,6 +24,15 @@ services:
     arguments: ["@file_loader"]
 #+END_SRC
 
+Note that the factory functions are assumed to do something equivalent
+to the following (return a class instance as the return value):
+
+#+BEGIN_SRC lisp
+(defun File-Loader-Factory (your-input-arg)
+  "Create an instance of a File-Loader or whatever class."
+  (make-instance 'File-Loader :file-name your-input-arg))
+#+END_SRC
+
 Then load up your config file with:
 
 #+BEGIN_SRC lisp
