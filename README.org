@@ -27,7 +27,7 @@ Then load up your config file with:
 #+END_SRC
 
 This will create a global singleton instance of the last loaded config
-(stored in *container-singleton*) that you can access parameters and
+(stored in **container-singleton**) that you can access parameters and
 services from with these calls.
 
 Access a parameter within it by using:
