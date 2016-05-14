@@ -26,13 +26,23 @@ Then load up your config file with:
 (injection:Container-Factory "/full/path/to/examples/config.yml" :singleton t)
 #+END_SRC
 
-And access a parameter within it by using:
+This will create a singleton instance of the last loaded config
+(stored in \*container-singleton\*) that you can access parameters and
+services from with these calls.
+
+Access a parameter within it by using:
 #+BEGIN_SRC lisp
 (get-parameter "blub") -> "foo"
 (get-parameter "an_array") -> '(1 2 3)
 #+END_SRC
 
-* TODO
+Access a service within it by using:
+#+BEGIN_SRC lisp
+(get-service "my_service") -> <MyService #abc123>
+(get-service "dependent_service") -> <DependentService #abc123>
+#+END_SRC
+
+* Still on the agenda                                                  :TODO:
 Need to add service/class instancing (so when a service is specified
 in the file, the #'get-service call will return an instanced version
 of said service, with the arguments that are filled out in the yml file.
