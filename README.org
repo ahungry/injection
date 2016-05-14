@@ -27,8 +27,11 @@ Then load up your config file with:
 #+END_SRC
 
 This will create a global singleton instance of the last loaded config
-(stored in **container-singleton**) that you can access parameters and
-services from with these calls.
+that is stored in
+#+BEGIN_SRC lisp
+*container-singleton*
+#+END_SRC
+that you can access parameters and services from with these calls.
 
 Access a parameter within it by using:
 #+BEGIN_SRC lisp
