@@ -21,16 +21,42 @@
   (:use :cl :asdf))
 (in-package :injection-asd)
 
-(defsystem #:injection-asd
+(defsystem #:injection
   :version "0.1"
   :author "Matthew Carter <m@ahungry.com>"
   :license "GPLv3"
   :depends-on (:split-sequence
+               :cl-yaml
                :glyphs)
   :serial t
-  :components ((:module "src"
-                :components
-                ((:file "main" :depends-on ("file-loader"))
-                 (:file "file-loader"))))
-  :description "A story driven game"
+  :components
+  (
+
+   ;; Main package definition
+   (:module
+    "src/package"
+    :components
+    ((:file "package")))
+
+   ;; Utility functions
+   (:module
+    "src/util"
+    :components
+    ((:file "generic")))
+
+   ;; Specific class functionality
+   (:module
+    "src/classes"
+    :components
+    ((:file "Container" :depends-on ("File-Loader"))
+     (:file "File-Loader")))
+
+   ;; Main app entry point
+   (:module
+    "src/app"
+    :components
+    ((:file "main")))
+
+   )
+  :description "Dependency injection for Common Lisp"
   :in-order-to ((test-op (load-op injection-test))))

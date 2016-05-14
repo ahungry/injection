@@ -1,0 +1,54 @@
+* Injection
+Dependency Injection for Common Lisp.
+
+* Example calls
+Set up a config file similar to the one found in examples/config.yml
+(modeled after the PHP Symfony framework config):
+
+#+BEGIN_SRC yml
+parameters:
+  foo: bar
+  an_array: [1, 2, 3]
+
+services:
+  my_service:
+    class: MyService
+    arguments: ["first argument"]
+
+  dependent_service:
+    class: DependentService
+    arguments: ["@my_service", "second argument"]
+#+END_SRC
+
+Then load up your config file with:
+
+#+BEGIN_SRC lisp
+(injection:Container-Factory "/full/path/to/examples/config.yml" :singleton t)
+#+END_SRC
+
+And access a parameter within it by using:
+#+BEGIN_SRC lisp
+(get-parameter "blub") -> "foo"
+(get-parameter "an_array") -> '(1 2 3)
+#+END_SRC
+
+* TODO
+Need to add service/class instancing (so when a service is specified
+in the file, the #'get-service call will return an instanced version
+of said service, with the arguments that are filled out in the yml file.
+
+* Installation
+Clone the repository (you do know how to git clone by now right?)
+
+Load the system with:
+#+BEGIN_SRC lisp
+(ql:quickload :injection)
+(use-package :injection)
+#+END_SRC
+
+* License
+GPLv3 (I'll be updating to make sure to specify the Lisp library GPL -
+basically, if you just use the library, your project including it is
+not going to be copylefted - only if you make and distribute
+modifications to this library should you make sure to make available
+this library's source code).

@@ -1,0 +1,12 @@
+parameters:
+  foo: bar
+  an_array: [1, 2, 3]
+
+services:
+  my_service:
+    class: MyService
+    arguments: ["first argument"]
+
+  dependent_service:
+    class: DependentService
+    arguments: ["@my_service", "second argument"]
