@@ -6,10 +6,10 @@ services:
   file_loader:
     # A function that will return an instance of the class we require
     # Since Common Lisp doesn't have position based class
-    # constructors, a factory function is needed to map them to the class
+    # constructors, a factory function is needed to map them to the class.
     factory: File-Loader-Factory
-    arguments: ["/tmp/cl.yml"]
+    arguments: ["../example/config_only_params.yml"]
 
-  dependent_service:
-    factory: File-Loader-Factory
-    arguments: ["/tmp/cl.yml"]
+  container_factory:
+    factory: Container-Factory
+    arguments: ["@file_loader"]

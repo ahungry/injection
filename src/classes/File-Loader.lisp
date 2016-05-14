@@ -24,7 +24,7 @@
         (with-open-file
             (stream (File-Name file)
                     :direction :input
-                    :if-does-not-exist nil)
+                    :if-does-not-exist :error)
           (when stream
             (loop for line = (read-line stream nil 'eof)
                until (eq line 'eof)
