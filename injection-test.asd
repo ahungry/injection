@@ -17,44 +17,37 @@
 ;;;; injection.asd
 
 (in-package :cl-user)
-(defpackage injection-asd
+(defpackage injection-test-asd
   (:use :cl :asdf))
-(in-package :injection-asd)
+(in-package :injection-test-asd)
 
-(defsystem #:injection
+(defsystem #:injection-test
   :version "0.1"
   :author "Matthew Carter <m@ahungry.com>"
   :license "GPLv3"
-  :depends-on (:cl-yaml)
+  :depends-on (:fiveam
+               :injection)
   :serial t
   :components
   (
 
    ;; Main package definition
    (:module
-    "src/package"
+    "tests/package"
     :components
     ((:file "package")))
 
-   ;; Utility functions
-   (:module
-    "src/util"
-    :components
-    ((:file "generic")))
-
    ;; Specific class functionality
    (:module
-    "src/classes"
+    "tests/classes"
     :components
-    ((:file "Container" :depends-on ("File-Loader"))
-     (:file "File-Loader")))
+     ((:file "File-Loader-Test")))
 
-   ;; Main app entry point
    (:module
-    "src/app"
+    "tests/app"
     :components
-    ((:file "main")))
+     ((:file "main")))
 
    )
   :description "Dependency injection for Common Lisp"
-  :in-order-to ((test-op (load-op injection-test))))
+)

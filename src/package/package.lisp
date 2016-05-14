@@ -3,7 +3,6 @@
 (defpackage #:injection
   (:use
    #:cl
-   #:split-sequence
    #:cl-yaml)
   (:export
    #:*container-singleton*
