@@ -78,8 +78,4 @@ Load the system with:
 #+END_SRC
 
 * License
-GPLv3 (I'll be updating to make sure to specify the Lisp library GPL -
-basically, if you just use the library, your project including it is
-not going to be copylefted - only if you make and distribute
-modifications to this library should you make sure to make available
-this library's source code).
+GPLv3
