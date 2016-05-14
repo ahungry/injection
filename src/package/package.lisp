@@ -9,4 +9,6 @@
    #:*container-singleton*
    #:get-parameter
    #:get-service
-   #:Container-Factory))
+   #:Container-Factory
+   #:Container-Get-Parameter
+   #:Container-Get-Service))

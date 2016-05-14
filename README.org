@@ -45,6 +45,24 @@ Access a service within it by using:
 (get-service "dependent_service") -> <DependentService #abc123>
 #+END_SRC
 
+* I will not use global scope Sam I am, I will not in a can
+Ok, so, not a fan of global state, I understand.
+
+You can avoid any global state by not specifying the singleton keyword
+up above, and instead using the package as follows:
+
+#+BEGIN_SRC lisp
+(use-package :injection)
+
+(let ((my-container (Container-Factory "example/config.yml")))
+           (Container-Get-Parameter my-container "foo")) -> "bar"
+#+END_SRC
+
+Or even simplified to (assuming you only need one value out of there:
+#+BEGIN_SRC lisp
+(injection:Container-Get-Parameter (injection:Container-Factory "example/config.yml") "foo") -> "bar"
+#+END_SRC
+
 * Still on the agenda                                                  :TODO:
 Need to add service/class instancing (so when a service is specified
 in the file, the #'get-service call will return an instanced version
