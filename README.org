@@ -12,11 +12,11 @@ parameters:
 
 services:
   my_service:
-    class: MyService
+    factory: my-function-that-returns-the-class-instance
     arguments: ["first argument"]
 
   dependent_service:
-    class: DependentService
+    factory: another-function-that-returns-the-class
     arguments: ["@my_service", "second argument"]
 #+END_SRC
 
