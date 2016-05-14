@@ -5,19 +5,23 @@ Dependency Injection for Common Lisp.
 Set up a config file similar to the one found in examples/config.yml
 (modeled after the PHP Symfony framework config):
 
-#+BEGIN_SRC yml
+#+BEGIN_SRC yaml
 parameters:
   foo: bar
   an_array: [1, 2, 3]
+  extra_config_file: "../example/config_only_params.yml"
 
 services:
-  my_service:
-    factory: my-function-that-returns-the-class-instance
-    arguments: ["first argument"]
+  file_loader:
+    # 'factory:' is a function that will return an instance of the class we require,
+    # since Common Lisp doesn't have position based class
+    # constructors, a factory function is needed to map them to the class.
+    factory: File-Loader-Factory
+    arguments: ["%extra_config_file%"]
 
-  dependent_service:
-    factory: another-function-that-returns-the-class
-    arguments: ["@my_service", "second argument"]
+  container_factory:
+    factory: Container-Factory
+    arguments: ["@file_loader"]
 #+END_SRC
 
 Then load up your config file with:
@@ -41,9 +45,14 @@ Access a parameter within it by using:
 
 Access a service within it by using:
 #+BEGIN_SRC lisp
-(get-service "my_service") -> <MyService #abc123>
-(get-service "dependent_service") -> <DependentService #abc123>
+(get-service "file_loader") -> #<FILE-LOADER {CB8A941}>
+(get-service "container_factory") -> #<CONTAINER {CB7FEE9}>
 #+END_SRC
+
+In case you didn't notice - yes, this is a sample config that is
+chaining one container to another different config (you can do that no
+problem!) - just be careful to avoid a circular loop or you may have
+an issue.
 
 * I will not use global scope Pam I am, I will not in a can
 Ok, so, not a fan of global state, I understand.
@@ -63,11 +72,17 @@ Or even simplified to (assuming you only need one value out of there:
 (injection:Container-Get-Parameter (injection:Container-Factory "example/config.yml") "foo") -> "bar"
 #+END_SRC
 
-* Still on the agenda                                                  :TODO:
-Need to add service/class instancing (so when a service is specified
-in the file, the #'get-service call will return an instanced version
-of said service, with the arguments that are filled out in the yml file.
+* Still on the agenda/caveats                                          :TODO:
+At the moment, the YAML files are read from top to bottom, and this
+means that you have to write them procedurally if injecting
+dependencies (which you're likely to do if you wanted to use this to
+begin with).
 
+I might also add an optional _defsystem_ keyword that would allow
+specifying the location of a package to load (so you could actually
+load packages or files on your machine through asdf/quicklisp through
+the YAML configuration, instead of having to do it on your top level
+asd yourself).
 * Installation
 Clone the repository (you do know how to git clone by now right?)
 

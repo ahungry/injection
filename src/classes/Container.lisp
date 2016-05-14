@@ -52,9 +52,17 @@
   "If we have any arguments that begin with an '@' symbol, we want to expand
 into the equivalent call to (Container-Get-Service container name)."
   (mapcar (lambda (arg)
-            (if (string= "@" arg :end2 1)
-                (Container-Get-Service container (subseq arg 1))
-                arg))
+            (cond
+              ;; A service was found via @service_name
+              ((string= "@" arg :end2 1)
+               (Container-Get-Service container (subseq arg 1)))
+
+              ;; A parameter was found via %parameter_name%
+              ((and (string= "%" arg :end2 1)
+                    (string= "%" arg :start2 (1- (length arg))))
+               (Container-Get-Parameter container (subseq arg 1 (1- (length arg)))))
+
+              (t arg)))
           arguments))
 
 (defmethod Container-Instantiate-Services ((container Container))

@@ -1,14 +1,15 @@
 parameters:
   foo: bar
   an_array: [1, 2, 3]
+  extra_config_file: "../example/config_only_params.yml"
 
 services:
   file_loader:
-    # A function that will return an instance of the class we require
-    # Since Common Lisp doesn't have position based class
+    # 'factory:' is a function that will return an instance of the class we require,
+    # since Common Lisp doesn't have position based class
     # constructors, a factory function is needed to map them to the class.
     factory: File-Loader-Factory
-    arguments: ["../example/config_only_params.yml"]
+    arguments: ["%extra_config_file%"]
 
   container_factory:
     factory: Container-Factory
