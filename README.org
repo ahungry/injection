@@ -19,7 +19,7 @@ services:
     factory: File-Loader-Factory
     arguments: ["%extra_config_file%"]
 
-  container_factory:
+  service_container:
     factory: Container-Factory
     arguments: ["@file_loader"]
 #+END_SRC
@@ -55,7 +55,7 @@ Access a parameter within it by using:
 Access a service within it by using:
 #+BEGIN_SRC lisp
 (get-service "file_loader") -> #<FILE-LOADER {CB8A941}>
-(get-service "container_factory") -> #<CONTAINER {CB7FEE9}>
+(get-service "service_container") -> #<CONTAINER {CB7FEE9}>
 #+END_SRC
 
 In case you didn't notice - yes, this is a sample config that is

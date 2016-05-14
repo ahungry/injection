@@ -11,6 +11,6 @@ services:
     factory: File-Loader-Factory
     arguments: ["%extra_config_file%"]
 
-  container_factory:
+  service_container:
     factory: Container-Factory
     arguments: ["@file_loader"]
