@@ -1,6 +1,12 @@
 ;;;; package.lisp
 
 (defpackage #:injection
-  (:use #:cl
-        #:split-sequence
-        #:cl-yaml))
+  (:use
+   #:cl
+   #:split-sequence
+   #:cl-yaml)
+  (:export
+   #:*container-singleton*
+   #:get-parameter
+   #:get-service
+   #:Container-Factory))

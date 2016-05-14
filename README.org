@@ -26,13 +26,13 @@ Then load up your config file with:
 (injection:Container-Factory "/full/path/to/examples/config.yml" :singleton t)
 #+END_SRC
 
-This will create a singleton instance of the last loaded config
-(stored in \*container-singleton\*) that you can access parameters and
+This will create a global singleton instance of the last loaded config
+(stored in *container-singleton*) that you can access parameters and
 services from with these calls.
 
 Access a parameter within it by using:
 #+BEGIN_SRC lisp
-(get-parameter "blub") -> "foo"
+(get-parameter "foo") -> "bar"
 (get-parameter "an_array") -> '(1 2 3)
 #+END_SRC
 
